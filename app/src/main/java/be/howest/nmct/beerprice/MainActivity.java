@@ -56,7 +56,17 @@ public class MainActivity extends Activity implements MainFragment.ButtonCLicked
     public void onClickListShow() {
         FragmentManager mgr = getFragmentManager();
         mgr.beginTransaction()
-                .replace(R.id.container, new BeerListFragment(), Constants.BEER_LIST)
+                .replace(R.id.container, new BeerListFragment(), Constants.MAINFRAGMENT)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onClickMapShow() {
+        FragmentManager mgr = getFragmentManager();
+        ShowOnMapFragment frag = new ShowOnMapFragment();
+        mgr.beginTransaction()
+                .replace(R.id.container, frag, Constants.BEER_LIST)
                 .addToBackStack(null)
                 .commit();
     }

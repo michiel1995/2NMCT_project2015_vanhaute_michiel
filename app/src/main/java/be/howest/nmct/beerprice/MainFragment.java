@@ -16,10 +16,12 @@ public class MainFragment extends Fragment{
 
     public interface ButtonCLickedMainFragment {
         void onClickListShow();
+        void onClickMapShow();
     }
 
 
     private Button btnList;
+    private Button btnMap;
     ButtonCLickedMainFragment clicked;
 
     @Override
@@ -32,11 +34,18 @@ public class MainFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main,container, false);
         btnList = (Button) v.findViewById(R.id.btnList);
+        btnMap = (Button) v.findViewById(R.id.btnMap);
 
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 clicked.onClickListShow();
+            }
+        });
+        btnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clicked.onClickMapShow();
             }
         });
         return v;

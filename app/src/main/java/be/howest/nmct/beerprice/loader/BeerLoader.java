@@ -6,8 +6,6 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.provider.BaseColumns;
 
-import org.apache.http.conn.ConnectionReleaseTrigger;
-
 import be.howest.nmct.admin.BeerAdmin;
 import be.howest.nmct.admin.BeerPrice;
 
@@ -56,7 +54,7 @@ public class BeerLoader  extends AsyncTaskLoader<Cursor> {
             if(mCursor  != null)return;
             MatrixCursor cursor = new MatrixCursor(mColumnNames);
             int id = 1;
-            for(BeerPrice beer : BeerAdmin.getBeer()){
+            for(BeerPrice beer : BeerAdmin.getBeers()){
                 MatrixCursor.RowBuilder row =cursor.newRow();
                 row.add(id);
                 row.add(beer.getOrganisation());

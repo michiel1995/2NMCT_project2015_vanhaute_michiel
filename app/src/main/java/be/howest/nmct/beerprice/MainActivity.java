@@ -50,7 +50,6 @@ public class MainActivity extends Activity implements MainFragment.ButtonCLicked
             return true;
         }
         return super.onOptionsItemSelected(item);
-        //jgjhkh
     }
 
     @Override

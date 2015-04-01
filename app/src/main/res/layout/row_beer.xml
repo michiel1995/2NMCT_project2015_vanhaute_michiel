@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="10dp"
-    android:layout_marginEnd="5dp">
+    >
 
     <ImageView
         android:layout_width="70dp"
@@ -17,7 +17,8 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
 
             <TextView
@@ -48,22 +49,22 @@
             android:layout_below="@id/tvBiermerk">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="straat naam "
-
                 android:layout_marginTop="5dp"
                 android:id="@+id/tvStreet"
                 android:layout_gravity="center_vertical" />
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="20dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="city"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:id="@+id/tvCity"
-                android:layout_gravity="center_vertical" />
+                android:layout_gravity="center_vertical"
+                />
         </LinearLayout>
 
         <TextView
@@ -74,7 +75,8 @@
             android:id="@+id/tvPrijs"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:textSize="50dp"/>
+            android:textSize="50dp"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +86,7 @@
             android:layout_toStartOf="@+id/tvPrijs" />
 
 
-    </RelativeLayout>
+    </RelativeLayout >
 
 
 

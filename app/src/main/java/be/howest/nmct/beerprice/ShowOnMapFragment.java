@@ -9,6 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.List;
+
+import be.howest.nmct.admin.BeerAdmin;
+import be.howest.nmct.admin.BeerPrice;
+import be.howest.nmct.beerprice.loader.Contract;
 
 
 /**
@@ -20,11 +25,13 @@ public class ShowOnMapFragment extends Fragment implements OnMapReadyCallback {
     public static final String PARAM_LON = "be.howest.nmct.beerpicer.PARAM_LON";
 
     private boolean single = false;
-    private static Double latitude;
-    private static Double longitude;
+    private Double latitude;
+    private Double longitude;
+    private BeerPrice beer;
+    private List<BeerPrice> beers;
 
 
-    public static ShowOnMapFragment newInstance(float latitude, float longitude)
+    public static ShowOnMapFragment newInstance(Double latitude, Double longitude)
     {
         ShowOnMapFragment frag = new ShowOnMapFragment();
         Bundle arg = new Bundle();
@@ -34,7 +41,8 @@ public class ShowOnMapFragment extends Fragment implements OnMapReadyCallback {
         return frag;
     }
     public ShowOnMapFragment(){
-
+        this.latitude = 50.94047;
+        this.longitude = 3.37859;
     }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,26 +59,64 @@ public class ShowOnMapFragment extends Fragment implements OnMapReadyCallback {
    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.show_on_map, container, false);
+        initializeMap();
+
+       if(!single)
+           beers = BeerAdmin.getBeers();
+       else
+          beer = BeerAdmin.getBeer(this.longitude, this.latitude);
+
+        return v;
+    }
+
+    private void initializeMap() {
         MapFragment mapFragment = (MapFragment) getChildFragmentManager()
                 .findFragmentById(R.id.map);
-       mapFragment.getMapAsync(this);
-        return v;
+        mapFragment.getMapAsync(this);
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
-        LatLng place = new LatLng(latitude, longitude);
-
+        LatLng zoomTo = new LatLng(latitude, longitude);
         map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(place, 15));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(zoomTo, 15));
 
-        map.addMarker(new MarkerOptions()
-                .title("Sydney")
-                .snippet("The most populous city in Australia.")
-                .position(place));
+        if(single)
+            setPin(map, this.beer);
+        else
+            multiplePin(map);
     }
 
+    private void multiplePin(GoogleMap map) {
+        for(BeerPrice beer : beers) {
+            setPin(map, beer);
+        }
+    }
 
+    private void setPin(GoogleMap map, BeerPrice beer)
+    {
+        LatLng place = new LatLng(beer.getLatitude(), beer.getLongitude());
+        map.addMarker(new MarkerOptions()
+                .title(beer.getOrganisation())
+                .snippet(beer.getBrand() + " €" + beer.getPrice())
+                .position(place)
+                .icon(BitmapDescriptorFactory.fromResource(getResourceIdBeerPicture(beer))));
+    }
+
+    private int getResourceIdBeerPicture(BeerPrice beer) {
+        float price = beer.getPrice();
+        int resourceid;
+        if(price < 1.5) {
+            resourceid = R.drawable.beer_low_mini;
+        }else if(price <2.0){
+            resourceid = R.drawable.beer_middle_low_mini;
+        }else if(price <2.5){
+            resourceid = R.drawable.beer_middle_high_mini;
+        }else{
+            resourceid = R.drawable.beer_high_mini;
+        }
+        return resourceid;
+    }
 
 
 }

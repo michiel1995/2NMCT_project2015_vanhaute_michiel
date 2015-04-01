@@ -99,15 +99,18 @@ public class BeerListFragment extends ListFragment implements LoaderManager.Load
 
             int longitude = cursor.getColumnIndex(Contract.BeerColumns.COLUMN_LONG);
             int latitude = cursor.getColumnIndex(Contract.BeerColumns.COLUMN_LAT);
-            BeerPrice b  = BeerAdmin.getBeer(cursor.getFloat(longitude), cursor.getFloat(latitude));
+            BeerPrice b  = BeerAdmin.getBeer(cursor.getDouble(longitude), cursor.getDouble(latitude));
             row.setTag(b);
-            /*if(cursor.getDouble(colnr) < 8) {
-                icon.setImageResource(R.drawable.student_red);
-            }else if(cursor.getDouble(colnr) <10){
-                icon.setImageResource(R.drawable.student_orange);
+            int price = cursor.getColumnIndex(Contract.BeerColumns.COLUMN_PRICE);
+            if(cursor.getDouble(price) < 1.5) {
+                icon.setImageResource(R.drawable.beer_low);
+            }else if(cursor.getDouble(price) <2){
+                icon.setImageResource(R.drawable.beer_middle_low);
+            }else if(cursor.getDouble(price) <2.5){
+                icon.setImageResource(R.drawable.beer_middle_high);
             }else{
-                icon.setImageResource(R.drawable.student_green);
-            }*/
+                icon.setImageResource(R.drawable.beer_high);
+            }
             return row;
         }
     }

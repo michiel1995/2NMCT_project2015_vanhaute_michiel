@@ -8,8 +8,8 @@ public class BeerPrice {
     private Float price;
     private String city;
     private String street;
-    private Float longitude;
-    private Float latitude;
+    private Double longitude;
+    private Double latitude;
     private int number;
     private String brand;
 
@@ -17,7 +17,7 @@ public class BeerPrice {
         return brand;
     }
 
-    public BeerPrice(String organisation,String brand, Float price, String city, String street, int number, Float longitude, Float latitude) {
+    public BeerPrice(String organisation,String brand, Float price, String city, String street, int number, Double longitude, Double latitude) {
         this.organisation = organisation;
         this.price = price;
         this.city = city;
@@ -44,11 +44,11 @@ public class BeerPrice {
         return city;
     }
 
-    public Float getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public Float getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 

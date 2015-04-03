@@ -14,20 +14,29 @@ import android.widget.Button;
  */
 public class MainFragment extends Fragment{
 
+
+
     public interface ButtonCLickedMainFragment {
         void onClickListShow();
         void onClickMapShow();
+        void onClickNewShow();
     }
 
 
     private Button btnList;
     private Button btnMap;
+    private Button btnNew;
     ButtonCLickedMainFragment clicked;
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        clicked = (ButtonCLickedMainFragment) activity;
+        try{
+            clicked = (ButtonCLickedMainFragment) activity;
+        }catch (ClassCastException ex) {
+            throw new ClassCastException(activity.toString() + " must implement OnStudentListItem");
+        }
+
     }
 
     @Override
@@ -35,6 +44,7 @@ public class MainFragment extends Fragment{
         View v = inflater.inflate(R.layout.fragment_main,container, false);
         btnList = (Button) v.findViewById(R.id.btnList);
         btnMap = (Button) v.findViewById(R.id.btnMap);
+        btnNew = (Button) v.findViewById(R.id.btnNew);
 
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +56,12 @@ public class MainFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 clicked.onClickMapShow();
+            }
+        });
+        btnNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clicked.onClickNewShow();
             }
         });
         return v;

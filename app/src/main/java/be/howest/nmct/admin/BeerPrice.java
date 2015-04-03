@@ -4,25 +4,39 @@ package be.howest.nmct.admin;
  * Created by Michiel on 31/03/2015.
  */
 public class BeerPrice {
+    public enum BEERBRANDS{
+        STELLA("Stella"),
+        JUPILER("Jupiler");
+        private String naam;
+
+        BEERBRANDS(String naam){
+            this.naam = naam;
+        }
+
+        public String getNaam() {
+            return naam;
+        }
+    }
+
     private String organisation;
     private Float price;
     private String city;
-    private String street;
+    private String address;
     private Double longitude;
     private Double latitude;
-    private int number;
-    private String brand;
+    private String country;
+    private BEERBRANDS brand;
 
-    public String getBrand() {
+    public BEERBRANDS getBrand() {
         return brand;
     }
 
-    public BeerPrice(String organisation,String brand, Float price, String city, String street, int number, Double longitude, Double latitude) {
+    public BeerPrice(String organisation,BEERBRANDS brand, Float price, String city, String address, String country, Double longitude, Double latitude) {
         this.organisation = organisation;
         this.price = price;
         this.city = city;
-        this.street = street;
-        this.number = number;
+        this.country = country;
+        this.address = address;
         this.longitude = longitude;
         this.latitude = latitude;
         this.brand = brand;
@@ -36,12 +50,12 @@ public class BeerPrice {
         return price;
     }
 
-    public String getStreet() {
-        return street;
-    }
-
     public String getCity() {
         return city;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public Double getLongitude() {
@@ -52,7 +66,7 @@ public class BeerPrice {
         return latitude;
     }
 
-    public int getNumber() {
-        return number;
+    public String getCountry() {
+        return country;
     }
 }

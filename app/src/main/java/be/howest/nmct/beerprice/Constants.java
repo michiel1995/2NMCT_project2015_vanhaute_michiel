@@ -7,4 +7,5 @@ public class Constants {
     public final static String MAINFRAGMENT ="be.howest.nmct.horoscoop.MAINFRAGMENT";
     public final static String BEER_LIST ="be.howest.nmct.horoscoop.BEER_LIST";
     public final static String SHOW_ON_MAP ="be.howest.nmct.horoscoop.SHOW_ON_MAP";
+    public final static String SELECT_BEERBRAND ="be.howest.nmct.horoscoop.SELECT_BEERBRAND";
 }

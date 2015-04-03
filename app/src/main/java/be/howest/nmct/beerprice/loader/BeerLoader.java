@@ -20,8 +20,8 @@ public class BeerLoader  extends AsyncTaskLoader<Cursor> {
             Contract.BeerColumns.COLUMN_BRAND,
             Contract.BeerColumns.COLUMN_PRICE,
             Contract.BeerColumns.COLUMN_CITY,
-            Contract.BeerColumns.COLUMN_STREET,
-            Contract.BeerColumns.COLUMN_NUMBER,
+            Contract.BeerColumns.COLUMN_ADDRESS,
+            Contract.BeerColumns.COLUMN_COUNTRY,
             Contract.BeerColumns.COLUMN_LAT,
             Contract.BeerColumns.COLUMN_LONG
     };
@@ -61,8 +61,8 @@ public class BeerLoader  extends AsyncTaskLoader<Cursor> {
                 row.add(beer.getBrand());
                 row.add(beer.getPrice());
                 row.add(beer.getCity());
-                row.add(beer.getStreet());
-                row.add(beer.getNumber());
+                row.add(beer.getAddress());
+                row.add(beer.getCountry());
                 row.add(beer.getLatitude());
                 row.add(beer.getLongitude());
                 id++;

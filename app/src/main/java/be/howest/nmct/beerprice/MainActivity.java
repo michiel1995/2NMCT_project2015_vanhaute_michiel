@@ -12,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import be.howest.nmct.admin.BeerPrice;
 import be.howest.nmct.beerprice.loader.Contract;
 
 
-public class MainActivity extends Activity implements MainFragment.ButtonCLickedMainFragment, BeerListFragment.ChangeToMapFragment {
+public class MainActivity extends Activity implements MainFragment.ButtonCLickedMainFragment, BeerListFragment.ChangeToMapFragment, NewFragment.OnSelectItemsForNew,BeerBrandFragment.OnSendBackBrand,SelectLocationFragment.OnSendLocation {
 
 
     @Override
@@ -66,18 +68,64 @@ public class MainActivity extends Activity implements MainFragment.ButtonCLicked
         FragmentManager mgr = getFragmentManager();
         ShowOnMapFragment frag = new ShowOnMapFragment();
         mgr.beginTransaction()
-                .replace(R.id.container, frag, Constants.BEER_LIST)
+                .replace(R.id.container, frag)
                 .addToBackStack(null)
                 .commit();
     }
 
     @Override
-    public void onChangeToMap(BeerPrice beer) {
+    public void onClickNewShow() {
         FragmentManager mgr = getFragmentManager();
-        ShowOnMapFragment frag =  ShowOnMapFragment.newInstance(beer.getLatitude(),beer.getLongitude());
+        NewFragment frag = new NewFragment();
         mgr.beginTransaction()
-                .replace(R.id.container, frag, Constants.BEER_LIST)
+                .replace(R.id.container, frag, Constants.SELECT_BEERBRAND)
                 .addToBackStack(null)
                 .commit();
+    }
+
+    @Override
+    public void onChangeToMap(Double lattitude, Double longitude) {
+        FragmentManager mgr = getFragmentManager();
+        ShowOnMapFragment frag =  ShowOnMapFragment.newInstance(lattitude, longitude);
+        mgr.beginTransaction()
+                .replace(R.id.container, frag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onSelectBeerBrand() {
+        FragmentManager mgr = getFragmentManager();
+        BeerBrandFragment frag = new BeerBrandFragment();
+        mgr.beginTransaction()
+                .replace(R.id.container, frag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onSelectLocation() {
+        FragmentManager mgr = getFragmentManager();
+        SelectLocationFragment frag = new SelectLocationFragment();
+        mgr.beginTransaction()
+                .replace(R.id.container, frag)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void onSendBackBrand(BeerPrice.BEERBRANDS brand) {
+        FragmentManager mgr = getFragmentManager();
+        mgr.popBackStack();
+        NewFragment frag = (NewFragment) mgr.findFragmentByTag(Constants.SELECT_BEERBRAND);
+        frag.changeBeerbrand(brand);
+    }
+
+    @Override
+    public void onSendBackLocation(LatLng latLng) {
+        FragmentManager mgr = getFragmentManager();
+        mgr.popBackStack();
+        NewFragment frag = (NewFragment) mgr.findFragmentByTag(Constants.SELECT_BEERBRAND);
+        frag.changeLocation(latLng);
     }
 }

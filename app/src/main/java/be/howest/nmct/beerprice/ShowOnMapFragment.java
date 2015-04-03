@@ -106,11 +106,11 @@ public class ShowOnMapFragment extends Fragment implements OnMapReadyCallback {
     private int getResourceIdBeerPicture(BeerPrice beer) {
         float price = beer.getPrice();
         int resourceid;
-        if(price < 1.5) {
+        if(price <= 1.5) {
             resourceid = R.drawable.beer_low_mini;
-        }else if(price <2.0){
+        }else if(price <=2.0){
             resourceid = R.drawable.beer_middle_low_mini;
-        }else if(price <2.5){
+        }else if(price <=2.5){
             resourceid = R.drawable.beer_middle_high_mini;
         }else{
             resourceid = R.drawable.beer_high_mini;

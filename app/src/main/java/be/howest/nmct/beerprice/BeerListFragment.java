@@ -26,7 +26,7 @@ import be.howest.nmct.beerprice.loader.Contract;
  */
 public class BeerListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
     public interface ChangeToMapFragment {
-        void onChangeToMap(BeerPrice beer);
+        void onChangeToMap(Double lattitude, Double longitude);
     }
     private ChangeToMapFragment changeMapFragment;
 
@@ -38,10 +38,16 @@ public class BeerListFragment extends ListFragment implements LoaderManager.Load
         return v;
     }
 
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        changeMapFragment = (ChangeToMapFragment) activity;
+        try{
+            changeMapFragment = (ChangeToMapFragment) activity;
+        }catch (ClassCastException ex) {
+            throw new ClassCastException(activity.toString() + " must implement OnStudentListItem");
+        }
+
     }
 
     @Override
@@ -51,7 +57,7 @@ public class BeerListFragment extends ListFragment implements LoaderManager.Load
         String[] columnNames = new String[]{
                 Contract.BeerColumns.COLUMN_ORGANISATION,
                 Contract.BeerColumns.COLUMN_BRAND,
-                Contract.BeerColumns.COLUMN_STREET,
+                Contract.BeerColumns.COLUMN_ADDRESS,
                 Contract.BeerColumns.COLUMN_CITY,
                 Contract.BeerColumns.COLUMN_PRICE
         };
@@ -63,7 +69,11 @@ public class BeerListFragment extends ListFragment implements LoaderManager.Load
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         BeerPrice b = (BeerPrice) v.getTag();
-        changeMapFragment.onChangeToMap(b);
+        super.onListItemClick(l, v, position, id);
+        Cursor c = (Cursor) beerAdapter.getItem(position);
+        Double lati =c.getDouble(c.getColumnIndex(Contract.BeerColumns.COLUMN_LAT));
+        Double longi =c.getDouble(c.getColumnIndex(Contract.BeerColumns.COLUMN_LONG));
+        changeMapFragment.onChangeToMap(lati,longi);
     }
 
     @Override
@@ -99,14 +109,13 @@ public class BeerListFragment extends ListFragment implements LoaderManager.Load
 
             int longitude = cursor.getColumnIndex(Contract.BeerColumns.COLUMN_LONG);
             int latitude = cursor.getColumnIndex(Contract.BeerColumns.COLUMN_LAT);
-            BeerPrice b  = BeerAdmin.getBeer(cursor.getDouble(longitude), cursor.getDouble(latitude));
-            row.setTag(b);
+
             int price = cursor.getColumnIndex(Contract.BeerColumns.COLUMN_PRICE);
-            if(cursor.getDouble(price) < 1.5) {
+            if(cursor.getDouble(price) <= 1.5) {
                 icon.setImageResource(R.drawable.beer_low);
-            }else if(cursor.getDouble(price) <2){
+            }else if(cursor.getDouble(price) <=2){
                 icon.setImageResource(R.drawable.beer_middle_low);
-            }else if(cursor.getDouble(price) <2.5){
+            }else if(cursor.getDouble(price) <=2.5){
                 icon.setImageResource(R.drawable.beer_middle_high);
             }else{
                 icon.setImageResource(R.drawable.beer_high);

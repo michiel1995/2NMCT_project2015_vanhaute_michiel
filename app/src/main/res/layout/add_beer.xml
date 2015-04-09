@@ -3,13 +3,25 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:layout_margin="10dp">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvMakeNew"
+        android:text="Vul alle velden in"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/etOrganisation"
         android:layout_marginTop="20dp"
         android:hint="Organisation"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/tvMakeNew"
+
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true" />
 
@@ -40,7 +52,8 @@
         android:layout_below="@+id/etBeerBrand"
         android:layout_alignParentStart="true"
         android:layout_marginTop="5dp"
-        android:id="@+id/linearLayout">
+        android:layout_marginLeft="10dp"
+        android:id="@+id/lyPrice">
          <TextView
              android:layout_width="wrap_content"
              android:layout_height="wrap_content"
@@ -58,5 +71,26 @@
             android:layout_toEndOf="@+id/linearLayout" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:id="@+id/btnSaveNewBeer"
+            android:layout_weight="1" />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:layout_weight="1"
+            android:id="@+id/btnCancelNewBeer"/>
+        </LinearLayout>
+
 
 </RelativeLayout>

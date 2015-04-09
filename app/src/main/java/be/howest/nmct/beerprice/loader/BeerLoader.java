@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.provider.BaseColumns;
 
+import java.util.List;
+
 import be.howest.nmct.admin.BeerAdmin;
 import be.howest.nmct.admin.BeerPrice;
 
@@ -54,7 +56,9 @@ public class BeerLoader  extends AsyncTaskLoader<Cursor> {
             if(mCursor  != null)return;
             MatrixCursor cursor = new MatrixCursor(mColumnNames);
             int id = 1;
-            for(BeerPrice beer : BeerAdmin.getBeers()){
+            List<BeerPrice> lijst = BeerAdmin.getBeers();
+            if(lijst != null){
+            for(BeerPrice beer : lijst){
                 MatrixCursor.RowBuilder row =cursor.newRow();
                 row.add(id);
                 row.add(beer.getOrganisation());
@@ -66,7 +70,7 @@ public class BeerLoader  extends AsyncTaskLoader<Cursor> {
                 row.add(beer.getLatitude());
                 row.add(beer.getLongitude());
                 id++;
-            }
+            }}
             mCursor=cursor;
         }
     }

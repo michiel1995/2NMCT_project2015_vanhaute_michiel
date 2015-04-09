@@ -88,8 +88,10 @@ public class ShowOnMapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void multiplePin(GoogleMap map) {
-        for(BeerPrice beer : beers) {
-            setPin(map, beer);
+        if(beers != null) {
+            for (BeerPrice beer : beers) {
+                setPin(map, beer);
+            }
         }
     }
 

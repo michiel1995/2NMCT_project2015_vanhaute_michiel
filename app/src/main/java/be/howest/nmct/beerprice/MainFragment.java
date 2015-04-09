@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 /**
  * Created by Michiel on 30/03/2015.
@@ -23,9 +24,9 @@ public class MainFragment extends Fragment{
     }
 
 
-    private Button btnList;
-    private Button btnMap;
-    private Button btnNew;
+    private ImageButton btnList;
+    private ImageButton btnMap;
+    private ImageButton btnNew;
     ButtonCLickedMainFragment clicked;
 
     @Override
@@ -42,9 +43,9 @@ public class MainFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_main,container, false);
-        btnList = (Button) v.findViewById(R.id.btnList);
-        btnMap = (Button) v.findViewById(R.id.btnMap);
-        btnNew = (Button) v.findViewById(R.id.btnNew);
+        btnList = (ImageButton) v.findViewById(R.id.btnList);
+        btnMap = (ImageButton) v.findViewById(R.id.btnMap);
+        btnNew = (ImageButton) v.findViewById(R.id.btnNew);
 
         btnList.setOnClickListener(new View.OnClickListener() {
             @Override

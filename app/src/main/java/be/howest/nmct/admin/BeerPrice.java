@@ -3,7 +3,7 @@ package be.howest.nmct.admin;
 /**
  * Created by Michiel on 31/03/2015.
  */
-public class BeerPrice {
+public final class BeerPrice {
     public enum BEERBRANDS{
         STELLA("Stella"),
         JUPILER("Jupiler");

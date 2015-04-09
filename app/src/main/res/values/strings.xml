@@ -7,5 +7,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="v">V</string>
     <string name="x">X</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 
 </resources>

@@ -14,18 +14,20 @@ import android.os.Build;
 
 import com.google.android.gms.maps.model.LatLng;
 
+import be.howest.nmct.admin.BeerAdmin;
 import be.howest.nmct.admin.BeerPrice;
 import be.howest.nmct.beerprice.loader.Contract;
 
 
 public class MainActivity extends Activity implements MainFragment.ButtonCLickedMainFragment, BeerListFragment.ChangeToMapFragment,
-        NewFragment.OnSelectItemsForNew,BeerBrandFragment.OnSendBackBrand,SelectLocationFragment.OnSendLocation {
+        NewFragment.OnSelectItemsForNew,BeerBrandFragment.OnSendBackBrand,SelectLocationFragment.OnSendLocation, NewFragment.OnCancelOrSaveNewBeer {
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        BeerAdmin.readBeers(this);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
                     .add(R.id.container, new MainFragment(),Constants.MAINFRAGMENT)
@@ -128,5 +130,17 @@ public class MainActivity extends Activity implements MainFragment.ButtonCLicked
         mgr.popBackStack();
         NewFragment frag = (NewFragment) mgr.findFragmentByTag(Constants.SELECT_BEERBRAND);
         frag.changeLocation(latLng);
+    }
+
+    @Override
+    public void onCancelOrSaveNewBeer() {
+        FragmentManager mgr = getFragmentManager();
+        mgr.popBackStack();
+    }
+
+    @Override
+    protected void onStop() {
+        BeerAdmin.saveBeers(this);
+        super.onStop();
     }
 }

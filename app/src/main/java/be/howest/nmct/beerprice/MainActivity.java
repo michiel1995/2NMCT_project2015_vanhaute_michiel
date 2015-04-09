@@ -18,7 +18,8 @@ import be.howest.nmct.admin.BeerPrice;
 import be.howest.nmct.beerprice.loader.Contract;
 
 
-public class MainActivity extends Activity implements MainFragment.ButtonCLickedMainFragment, BeerListFragment.ChangeToMapFragment, NewFragment.OnSelectItemsForNew,BeerBrandFragment.OnSendBackBrand,SelectLocationFragment.OnSendLocation {
+public class MainActivity extends Activity implements MainFragment.ButtonCLickedMainFragment, BeerListFragment.ChangeToMapFragment,
+        NewFragment.OnSelectItemsForNew,BeerBrandFragment.OnSendBackBrand,SelectLocationFragment.OnSendLocation {
 
 
     @Override

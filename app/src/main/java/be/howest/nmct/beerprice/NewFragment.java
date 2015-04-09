@@ -2,12 +2,14 @@ package be.howest.nmct.beerprice;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -29,6 +31,8 @@ public class NewFragment extends Fragment {
 
     private EditText etBeerBrand;
     private EditText etLocation;
+    private EditText etPrice;
+    private EditText etOrganisation;
     private OnSelectItemsForNew selectItemsNew;
     private BeerPrice.BEERBRANDS brand;
     private String address;
@@ -83,20 +87,20 @@ public class NewFragment extends Fragment {
         else
              etLocation.setText(address + " - " + city + ", " + country);
     }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.add_beer,container,false);
-
         etBeerBrand = (EditText) v.findViewById(R.id.etBeerBrand);
         etLocation = (EditText) v.findViewById(R.id.etLocation);
+        etOrganisation = (EditText) v.findViewById(R.id.etOrganisation);
+        etPrice = (EditText) v.findViewById(R.id.etPrice);
         etBeerBrand.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus) {
+                    noFocus();
                     goToBeerBrand();
-                    hideKeyboard();
                 }
             }
         });
@@ -104,9 +108,22 @@ public class NewFragment extends Fragment {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
+                    noFocus();
                     goToLocation();
-                    hideKeyboard();
+
                 }
+            }
+        });
+        etOrganisation.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                hideKeyboard();
+            }
+        });
+        etPrice.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                hideKeyboard();
             }
         });
 
@@ -115,10 +132,17 @@ public class NewFragment extends Fragment {
     }
 
     private void hideKeyboard() {
-        getActivity().getWindow().setSoftInputMode(
-                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-        );
+        InputMethodManager imm =
+                (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(etOrganisation.getWindowToken(), 0);
     }
+
+    private void noFocus() {
+        View current = getActivity().getCurrentFocus();
+        if (current != null)
+            current.clearFocus();
+    }
+
 
     private void goToBeerBrand(){
         selectItemsNew.onSelectBeerBrand();

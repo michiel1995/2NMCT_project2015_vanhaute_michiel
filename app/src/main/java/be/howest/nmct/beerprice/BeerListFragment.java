@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -37,6 +38,7 @@ public class BeerListFragment extends ListFragment implements LoaderManager.Load
 
         return v;
     }
+
 
 
     @Override

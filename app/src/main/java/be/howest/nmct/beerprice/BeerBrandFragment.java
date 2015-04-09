@@ -2,9 +2,12 @@ package be.howest.nmct.beerprice;
 
 import android.app.Activity;
 import android.app.ListFragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -41,7 +44,14 @@ public class BeerBrandFragment extends ListFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setListAdapter(new BeerbrandAdapter());
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
     }
 
     class BeerbrandAdapter extends ArrayAdapter<BeerPrice.BEERBRANDS>{

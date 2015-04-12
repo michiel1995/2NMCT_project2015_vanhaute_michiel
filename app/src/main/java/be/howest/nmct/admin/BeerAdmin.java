@@ -20,6 +20,8 @@ import java.io.ObjectOutput;
 import java.io.ObjectOutputStream;
 import java.io.StreamCorruptedException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,6 +38,18 @@ public class BeerAdmin {
     }
 
     public static List<BeerPrice> getBeers(){return beers;}
+
+    public static List<BeerPrice> getBeersSorted(Context context){
+        Double[] lastKnownLocation = new Location(context).getLastKnownLocation();
+        if(lastKnownLocation[0] == null || lastKnownLocation[1] == null )
+            return beers;
+        for(BeerPrice beer: beers){
+            double dist = Math.sqrt(Math.pow(beer.getLongitude() - lastKnownLocation[1],2) + Math.pow(beer.getLatitude()- lastKnownLocation[0],2));
+            beer.setDistance(dist);
+        }
+        Collections.sort(beers);
+        return beers;
+    }
 
     public static BeerPrice getBeer( Double longitude, Double latitude){
         for(BeerPrice b : beers){
@@ -56,6 +70,7 @@ public class BeerAdmin {
         beers = stringToObject(arrayString);
         if(beers == null)
             beers = new ArrayList<BeerPrice>();
+
     }
 
     private static List<BeerPrice> stringToObject(String json) {

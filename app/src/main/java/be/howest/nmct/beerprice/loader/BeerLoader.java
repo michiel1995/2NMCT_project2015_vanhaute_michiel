@@ -16,6 +16,8 @@ import be.howest.nmct.admin.BeerPrice;
  */
 public class BeerLoader  extends AsyncTaskLoader<Cursor> {
     private Cursor mCursor;
+    private Boolean sorted;
+    private Context context;
     public final  String[] mColumnNames = new String[]{
             BaseColumns._ID,
             Contract.BeerColumns.COLUMN_ORGANISATION,
@@ -30,6 +32,11 @@ public class BeerLoader  extends AsyncTaskLoader<Cursor> {
 
     public BeerLoader(Context context) {
         super(context);
+    }
+    public BeerLoader(Context context, Boolean sorted) {
+        super(context);
+        this.context = context;
+        this.sorted = sorted;
     }
     private static Object lock = new Object();
 
@@ -56,7 +63,11 @@ public class BeerLoader  extends AsyncTaskLoader<Cursor> {
             if(mCursor  != null)return;
             MatrixCursor cursor = new MatrixCursor(mColumnNames);
             int id = 1;
-            List<BeerPrice> lijst = BeerAdmin.getBeers();
+            List<BeerPrice> lijst;
+            if(sorted)
+                 lijst = BeerAdmin.getBeersSorted(context);
+            else
+                lijst = BeerAdmin.getBeers();
             if(lijst != null){
             for(BeerPrice beer : lijst){
                 MatrixCursor.RowBuilder row =cursor.newRow();

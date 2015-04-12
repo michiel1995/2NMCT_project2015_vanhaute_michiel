@@ -3,7 +3,16 @@ package be.howest.nmct.admin;
 /**
  * Created by Michiel on 31/03/2015.
  */
-public final class BeerPrice {
+public final class BeerPrice implements Comparable<BeerPrice> {
+    @Override
+    public int compareTo(BeerPrice another) {
+        Double compareDistance = another.getDistance();
+        if((this.getDistance() - compareDistance) < 0)
+            return -1;
+        else
+            return 1;
+    }
+
     public enum BEERBRANDS{
         STELLA("Stella"),
         JUPILER("Jupiler");
@@ -24,6 +33,16 @@ public final class BeerPrice {
     private String address;
     private Double longitude;
     private Double latitude;
+    private Double distance;
+
+    public Double getDistance() {
+        return distance;
+    }
+
+    public void setDistance(Double distance) {
+        this.distance = distance;
+    }
+
     private String country;
     private BEERBRANDS brand;
 

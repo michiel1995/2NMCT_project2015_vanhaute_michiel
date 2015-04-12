@@ -80,7 +80,7 @@ public class BeerListFragment extends ListFragment implements LoaderManager.Load
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new BeerLoader(getActivity());
+        return new BeerLoader(getActivity(),true);
     }
 
     @Override

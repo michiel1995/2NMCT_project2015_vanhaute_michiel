@@ -13,6 +13,7 @@ import java.util.List;
 
 import be.howest.nmct.admin.BeerAdmin;
 import be.howest.nmct.admin.BeerPrice;
+import be.howest.nmct.admin.Location;
 import be.howest.nmct.beerprice.loader.Contract;
 
 
@@ -41,8 +42,7 @@ public class ShowOnMapFragment extends Fragment implements OnMapReadyCallback {
         return frag;
     }
     public ShowOnMapFragment(){
-        this.latitude = 50.94047;
-        this.longitude = 3.37859;
+
     }
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +51,27 @@ public class ShowOnMapFragment extends Fragment implements OnMapReadyCallback {
             this.longitude = getArguments().getDouble(PARAM_LON);
             single = true;
         }
+        else{
+            longlatCurrentLocation();
+        }
 
 
     }
 
+    private void longlatCurrentLocation() {
+        Double[] lastKnownLocation = new Location(getActivity()).getLastKnownLocation();
+        if(lastKnownLocation[0] != null || lastKnownLocation[1] != null) {
+            this.latitude = lastKnownLocation[0];
+            this.longitude = lastKnownLocation[1];
+        }
+        else{
+            this.latitude = 0.0;
+            this.longitude = 0.0;
+        }
+    }
 
-   @Override
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.show_on_map, container, false);
         initializeMap();

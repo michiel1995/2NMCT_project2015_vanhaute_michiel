@@ -41,6 +41,7 @@ public class BeerAdmin {
 
     public static List<BeerPrice> getBeersSorted(Context context){
         Double[] lastKnownLocation = new Location(context).getLastKnownLocation();
+        //als er geen eigen locatie is
         if(lastKnownLocation[0] == null || lastKnownLocation[1] == null )
             return beers;
         for(BeerPrice beer: beers){

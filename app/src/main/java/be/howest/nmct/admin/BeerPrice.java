@@ -15,7 +15,14 @@ public final class BeerPrice implements Comparable<BeerPrice> {
 
     public enum BEERBRANDS{
         STELLA("Stella"),
+        MAES("Maes"),
+        CORONA("Corona"),
+        DESPERADOS("Desperados"),
+        BELLEVUE("Belle vue"),
+        CARA("Cara"),
+        OMER("Omer"),
         JUPILER("Jupiler");
+
         private String naam;
 
         BEERBRANDS(String naam){
